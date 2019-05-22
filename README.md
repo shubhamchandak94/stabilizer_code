@@ -9,7 +9,7 @@ Instructor: Will Zeng
 
 
 ## Installation
-Follow instructions to install qvm and quilc from http://docs.rigetti.com/en/stable/
+Follow instructions to install qvm and quilc from http://docs.rigetti.com/en/stable/.
 Then just run 
 ```
 git clone https://github.com/shubhamchandak94/stabilizer_code
