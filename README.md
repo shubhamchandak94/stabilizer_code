@@ -1,7 +1,10 @@
 # stabilizer_code
 Implementation of stabilizer codes in pyQuil
+
 Part of CS269Q Spring 2018-19 course project
+
 Authors: Shubham Chandak, Jay Mardia, Meltem Tolunay
+
 Instructor: Will Zeng
 
 ## Installation
