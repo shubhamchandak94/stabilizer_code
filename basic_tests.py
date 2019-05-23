@@ -3,7 +3,7 @@ from pyquil import Program
 from pyquil.gates import MEASURE, I, CNOT, X, H, Z
 import stabilizer_code
 import stabilizer_check_matrices
-
+import sys
 from pyquil.api import QVMConnection
 
 def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials = 100):
@@ -12,16 +12,16 @@ def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Progr
     inverse_initial_state_prep = Program()
     for instruction in reversed(initial_state_prep):
         # inverse gate
-        new_instruction_name = 'DAGGER ' + instruction.name
+        new_instruction_name = 'DAGGER ' + (str(instruction).split())[0]
         # apply to shifted qubits since decoder writes output to n...n+k-1
-        new_instruction_qubits = [str(code.n + q) for q in instruction.qubits]
+        new_instruction_qubits = [str(code.n + q.index) for q in instruction.qubits]
         inverse_initial_state_prep += Program(' '.join([new_instruction_name]+new_instruction_qubits))
-    prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + invert_initial_state_prep
+    prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + inverse_initial_state_prep
     prog.measure_all()
-    measured_bits = qvm.run(prog, trials=num_trials)
+    measured_bits = np.array(qvm.run(prog, trials=num_trials))
     decoded_msg_bits = measured_bits[:,code.n:code.n+code.k]
     # part which contains decoded qubits
-    num_errors = np.count_nonzero(np.sum(decoded_msg_bits,axis=0))
+    num_errors = np.count_nonzero(np.sum(decoded_msg_bits,axis=1))
     print('num_trials', num_trials)
     print('num_errors', num_errors)
 
@@ -29,12 +29,14 @@ def generate_initial_state_prep_for_testing(k):
     # returns list of programs generating initial states for testing the
     # encoding decoding.
     if k == 1:
-        # for k = 1, we return |0>, |1>, |+> and |->
+        # for k = 1, we return |0>, |1>, |+>, |->, and a few more
         return [
             Program(),
             Program('X 0'),
             Program('H 0'),
             Program('X 0') + Program('H 0'),
+            Program('T 0'),
+            Program('RX (1.0) 0'),
         ]
     elif k == 2:
         # for k = 2, return |00>, |01>, |10>, |11>, 1/sqrt(2)(|00>+|11>)
@@ -53,7 +55,7 @@ def test_no_error(code: stabilizer_code.StabilizerCode):
     initial_state_list = generate_initial_state_prep_for_testing(code.k)
     for init_program in initial_state_list:
         print('Initial state')
-        print(program)
+        print(init_program)
         test_general(code, init_program, Program())
 
 def test_single_bit_flip(code: stabilizer_code.StabilizerCode):
@@ -88,6 +90,15 @@ def test_single_Y_noise(code: stabilizer_code.StabilizerCode):
             print('Error in qubit',i)
             test_general(code, init_program, Program('Y '+str(i)))
 
+def test_single_H_error(code: stabilizer_code.StabilizerCode):
+    print('Single Hadamard error case')
+    initial_state_list = generate_initial_state_prep_for_testing(code.k)
+    for init_program in initial_state_list:
+        print('Initial state')
+        print(init_program)
+        for i in range(code.n):
+            print('Error in qubit',i)
+            test_general(code, init_program, Program('H '+str(i)))
 
 def test_oneX_oneZ(code: stabilizer_code.StabilizerCode):
     print('One X and one Z error on different qubits case')
@@ -103,12 +114,20 @@ def test_oneX_oneZ(code: stabilizer_code.StabilizerCode):
                 print('Z error in qubit',j)
                 test_general(code, init_program, Program('X '+str(i))+Program('Z '+str(j)))
 
-code_name_list = ['bit_flip_code', 'phase_flip_code', 'shor_code', 'steane_code', 'five_qubit_code','table_3_5_code_4_2_2']
+if len(sys.argv) == 1:
+    # test all codes
+    code_name_list = [k for k in stabilizer_check_matrices.mat_dict]
+else:
+    # test specific code provided as argument
+    code_name_list = [sys.argv[1]]
+
+
 for code_name in code_name_list:
     print('Code:',code_name)
     code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
     test_no_error(code)
-    test_single_bit_flip(code)
-    test_single_phase_flip(code)
-    test_single_Y_noise(code)
-    test_oneX_oneZ(code)
+    # test_single_bit_flip(code)
+    # test_single_phase_flip(code)
+    # test_single_Y_noise(code)
+    # test_single_H_error(code)
+    # test_oneX_oneZ(code)
