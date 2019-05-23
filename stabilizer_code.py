@@ -92,17 +92,16 @@ class StabilizerCode:
                 if row[j] == 1:
                     p += Program('CNOT '+str(self.n-self.k+i)+' '+str(j))
 
-        # now apply Hadamards
+        # now do the process of encoding. This is based on section 4.2, but
+        # the description there has some bugs and didn't work properly for
+        # the five qubit code, so I made some changes to correct that.
         for i in range(self.r):
+            # first apply Hadamard
             p += Program('H '+str(i))
-
-        # now apply Z to the qubits when M_i has a factor of Z_i
-        for i in range(self.r):
+            # if you have Z_i factor in M_i, apply S gate
             if self.std_check_matrix[i,self.n+i] == 1:
-                p += Program('Z '+str(i))
-
-        # finally apply the M_i generators conditioned on qubit i
-        for i in range(self.r):
+                p += Program('S '+str(i))
+            # finally apply the M_i generators conditioned on qubit i
             for j in range(self.n):
                 if j == i:
                     continue # already considered before
