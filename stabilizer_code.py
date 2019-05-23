@@ -32,11 +32,11 @@ class StabilizerCode:
         self.encoding_program = self.__encode()
         # message qubits 0 to k-1, ancilla 0 qubits k to n-1
         # encoded codeword qubits in 0 to n-1
-        print(self.encoding_program)
+        # print(self.encoding_program)
         self.decoding_program = self.__decode()
         # noisy encoded codeword 0 to n-1, ancilla 0 qubits n to n+k-1
         # decoded message qubits in n to n+k-1
-        print(self.decoding_program)
+        # print(self.decoding_program)
 
     def __generate_syndrome_map(self, allowed_errors):
         syndrome2correction = {}
