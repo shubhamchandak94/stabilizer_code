@@ -1,18 +1,20 @@
 import numpy as np
 
-standard_check_matrices = {}
+mat_dict = {}
 
-standard_check_matrices['bit_flip_code'] = np.array([
+# dtype = np.uint8 instead of bool so that addition works correctly
+
+mat_dict['bit_flip_code'] = np.array([
     [0, 0, 0,   1, 1, 0],
     [0, 0, 0,   1, 0, 1],
-], dtype = bool)
+], dtype = np.uint8)
 
-standard_check_matrices['phase_flip_code'] = np.array([
+mat_dict['phase_flip_code'] = np.array([
     [1, 1, 0,   0, 0, 0],
     [1, 0, 1,   0, 0, 0],
-], dtype = bool)
+], dtype = np.uint8)
 
-standard_check_matrices['shor_code'] = np.array([
+mat_dict['shor_code'] = np.array([
     [0, 0, 0, 0, 0, 0, 0, 0, 0,  1, 1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0,  1, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 1, 1, 0, 0, 0, 0],
@@ -21,20 +23,25 @@ standard_check_matrices['shor_code'] = np.array([
     [0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 1, 0, 1],
     [1, 1, 1, 1, 1, 1, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0],
     [1, 1, 1, 0, 0, 0, 1, 1, 1,  0, 0, 0, 0, 0, 0, 0, 0, 0],
-], dtype = bool)
+], dtype = np.uint8)
 
-standard_check_matrices['steane_code'] = np.array([
+mat_dict['steane_code'] = np.array([
     [1, 1, 1, 1, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0],
     [1, 1, 0, 0, 1, 1, 0,   0, 0, 0, 0, 0, 0, 0],
     [1, 0, 1, 0, 1, 0, 1,   0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0,   1, 1, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0,   1, 1, 0, 0, 1, 1, 0],
     [0, 0, 0, 0, 0, 0, 0,   1, 0, 1, 0, 1, 0, 1],
-], dtype = bool)
+], dtype = np.uint8)
 
-standard_check_matrices['five_qubit_code'] = np.array([
+mat_dict['five_qubit_code'] = np.array([
     [1, 0, 0, 1, 0,     0, 1, 1, 0, 0],
     [0, 1, 0, 0, 1,     0, 0, 1, 0, 0],
     [1, 0, 1, 0, 0,     0, 0, 1, 0, 0],
     [0, 1, 0, 1, 0,     1, 0, 1, 0, 0],
-], dtype = bool)
+], dtype = np.uint8)
+
+mat_dict['table_3_5_code_4_2_2'] = np.array([
+    [1, 0, 0, 1,     0, 1, 1, 0],
+    [1, 1, 1, 1,     1, 0, 0, 1],
+], dtype = np.uint8)
