@@ -1,0 +1,984 @@
+Code: five_qubit_code
+n: 5
+k: 1
+Check matrix stabilizers:
+XZZXI
+IXZZX
+XIXZZ
+ZXIXZ
+r: 4
+Standard form check matrix stabilizers:
+YZIZY
+IXZZX
+ZZXIX
+ZIZYY
+Standard form X_bar operators:
+ZIIZX
+Standard form Z_bar operators:
+ZZZZZ
+No error case
+Initial state
+
+num_trials 100
+num_errors 0
+Initial state
+X 0
+
+num_trials 100
+num_errors 0
+Initial state
+H 0
+
+num_trials 100
+num_errors 0
+Initial state
+X 0
+H 0
+
+num_trials 100
+num_errors 0
+Initial state
+T 0
+
+num_trials 100
+num_errors 0
+Initial state
+RX(1.0) 0
+
+num_trials 100
+num_errors 0
+Single bit flip case
+Initial state
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+T 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+RX(1.0) 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Single phase flip case
+Initial state
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+T 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+RX(1.0) 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Single Y error case
+Initial state
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+T 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+RX(1.0) 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Single Hadamard error case
+Initial state
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+X 0
+H 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+T 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+Initial state
+RX(1.0) 0
+
+Error in qubit 0
+num_trials 100
+num_errors 0
+Error in qubit 1
+num_trials 100
+num_errors 0
+Error in qubit 2
+num_trials 100
+num_errors 0
+Error in qubit 3
+num_trials 100
+num_errors 0
+Error in qubit 4
+num_trials 100
+num_errors 0
+One X and one Z error on different qubits case
+Initial state
+
+X error in qubit 0
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 3
+num_trials 100
+num_errors 100
+Initial state
+X 0
+
+X error in qubit 0
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 3
+num_trials 100
+num_errors 100
+Initial state
+H 0
+
+X error in qubit 0
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 3
+num_trials 100
+num_errors 0
+Initial state
+X 0
+H 0
+
+X error in qubit 0
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 3
+num_trials 100
+num_errors 0
+Initial state
+T 0
+
+X error in qubit 0
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 0
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 3
+num_trials 100
+num_errors 0
+X error in qubit 1
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 2
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 4
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 0
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 3
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 1
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 2
+num_trials 100
+num_errors 0
+X error in qubit 4
+Z error in qubit 3
+num_trials 100
+num_errors 100
+Initial state
+RX(1.0) 0
+
+X error in qubit 0
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 0
+Z error in qubit 2
+num_trials 100
+num_errors 82
+X error in qubit 0
+Z error in qubit 3
+num_trials 100
+num_errors 68
+X error in qubit 0
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 1
+Z error in qubit 3
+num_trials 100
+num_errors 78
+X error in qubit 1
+Z error in qubit 4
+num_trials 100
+num_errors 72
+X error in qubit 2
+Z error in qubit 0
+num_trials 100
+num_errors 69
+X error in qubit 2
+Z error in qubit 1
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 3
+num_trials 100
+num_errors 100
+X error in qubit 2
+Z error in qubit 4
+num_trials 100
+num_errors 60
+X error in qubit 3
+Z error in qubit 0
+num_trials 100
+num_errors 75
+X error in qubit 3
+Z error in qubit 1
+num_trials 100
+num_errors 64
+X error in qubit 3
+Z error in qubit 2
+num_trials 100
+num_errors 100
+X error in qubit 3
+Z error in qubit 4
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 0
+num_trials 100
+num_errors 100
+X error in qubit 4
+Z error in qubit 1
+num_trials 100
+num_errors 71
+X error in qubit 4
+Z error in qubit 2
+num_trials 100
+num_errors 70
+X error in qubit 4
+Z error in qubit 3
+num_trials 100
+num_errors 100
