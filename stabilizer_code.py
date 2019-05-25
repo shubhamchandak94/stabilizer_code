@@ -223,7 +223,7 @@ def convert_to_std_form(check_matrix):
             std_check_matrix[r+op[1],:] = np.mod(std_check_matrix[r+op[1],:]+std_check_matrix[r+op[2],:],2)
         elif op[0] == 'SWAPCOL':
             std_check_matrix[:,[-(n-r)+op[1],-(n-r)+op[2]]] = std_check_matrix[:,[-(n-r)+op[2],-(n-r)+op[1]]]
-            std_check_matrix[:,[-n-(n-r)++op[1],-n-(n-r)++op[2]]] = std_check_matrix[:,[-n-(n-r)+op[2],-n-(n-r)+op[1]]]
+            std_check_matrix[:,[-n-(n-r)+op[1],-n-(n-r)+op[2]]] = std_check_matrix[:,[-n-(n-r)+op[2],-n-(n-r)+op[1]]]
 
     # now write the submatrices of interest
     E = std_check_matrix[r:,-k:] # size n-k-r * k
