@@ -34,8 +34,8 @@ class StabilizerCode:
         # encoded codeword qubits in 0 to n-1
         # print(self.encoding_program)
         self.decoding_program = self.__decode()
-        # noisy encoded codeword 0 to n-1, ancilla 0 qubits n to n+k-1
-        # decoded message qubits in n to n+k-1
+        # noisy encoded codeword 0 to n-1, ancilla 0 qubits n to max(n+k-1,2n-k-1)
+        # decoded message qubits in 0 to n-1
         # print(self.decoding_program)
 
     def __generate_syndrome_map(self, allowed_errors):
@@ -115,7 +115,7 @@ class StabilizerCode:
         # DO NOT CALL DIRECTLY, INSTEAD USE StabilizerCode.decoding_program
         # returns program for decoding under the assumption that
         # qubits 0 through n-1 contain the noisy codeword.
-        # The decoded message qubits are finally put in qubits n through n+k-1.
+        # The decoded message qubits are finally put in qubits 0 through k-1.
 
         p = Program()
         # Step 1: measure all the syndromes (this part is based on Nielsen & Chuang
@@ -166,6 +166,10 @@ class StabilizerCode:
                 pauli = tuple2pauli[(self.X_bar[i,j],self.X_bar[i,self.n+j])]
                 if pauli != 'I':
                     p += Program('CONTROLLED '+pauli+' '+str(self.n+i)+' '+str(j))
+
+        # swap and put the decoded qubits to 0..k-1
+        for i in range(self.k):
+            p += Program('SWAP '+str(i)+' '+str(self.n+i))
 
         return p
 

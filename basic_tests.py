@@ -13,13 +13,12 @@ def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Progr
     for instruction in reversed(initial_state_prep):
         # inverse gate
         new_instruction_name = 'DAGGER ' + (str(instruction).split())[0]
-        # apply to shifted qubits since decoder writes output to n...n+k-1
-        new_instruction_qubits = [str(code.n + q.index) for q in instruction.qubits]
+        new_instruction_qubits = [str(q.index) for q in instruction.qubits]
         inverse_initial_state_prep += Program(' '.join([new_instruction_name]+new_instruction_qubits))
     prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + inverse_initial_state_prep
     prog.measure_all()
     measured_bits = np.array(qvm.run(prog, trials=num_trials))
-    decoded_msg_bits = measured_bits[:,code.n:code.n+code.k]
+    decoded_msg_bits = measured_bits[:,:code.k]
     # part which contains decoded qubits
     num_errors = np.count_nonzero(np.sum(decoded_msg_bits,axis=1))
     print('num_trials', num_trials)
@@ -37,15 +36,6 @@ def generate_initial_state_prep_for_testing(k):
             Program('X 0') + Program('H 0'),
             Program('T 0'),
             Program('RX (1.0) 0'),
-        ]
-    elif k == 2:
-        # for k = 2, return |00>, |01>, |10>, |11>, 1/sqrt(2)(|00>+|11>)
-        return [
-            Program(),
-            Program('X 0'),
-            Program('X 1'),
-            Program('X 0') + Program('X 1'),
-            Program('H 0') + Program('CNOT 0 1'),
         ]
     else:
         raise NotImplementedError
