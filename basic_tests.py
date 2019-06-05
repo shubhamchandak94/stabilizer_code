@@ -103,21 +103,26 @@ def test_oneX_oneZ(code: stabilizer_code.StabilizerCode):
                 print('X error in qubit',i)
                 print('Z error in qubit',j)
                 test_general(code, init_program, Program('X '+str(i))+Program('Z '+str(j)))
+               
+def main():
+	if len(sys.argv) == 1:
+		# test all codes
+		code_name_list = [k for k in stabilizer_check_matrices.mat_dict]
+	else:
+		# test specific code provided as argument
+		code_name_list = [sys.argv[1]]
 
-if len(sys.argv) == 1:
-    # test all codes
-    code_name_list = [k for k in stabilizer_check_matrices.mat_dict]
-else:
-    # test specific code provided as argument
-    code_name_list = [sys.argv[1]]
 
+	for code_name in code_name_list:
+		print('Code:',code_name)
+		code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
+		test_no_error(code)
+		test_single_bit_flip(code)
+		test_single_phase_flip(code)
+		test_single_Y_noise(code)
+		test_single_H_error(code)
+		test_oneX_oneZ(code)
 
-for code_name in code_name_list:
-    print('Code:',code_name)
-    code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
-    test_no_error(code)
-    test_single_bit_flip(code)
-    test_single_phase_flip(code)
-    test_single_Y_noise(code)
-    test_single_H_error(code)
-    test_oneX_oneZ(code)
+if __name__ == "__main__":
+	main()
+	
