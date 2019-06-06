@@ -1,13 +1,16 @@
 import numpy as np
 from pyquil import Program
+from pyquil import noise
 from pyquil.gates import MEASURE, I, CNOT, X, H, Z
 import stabilizer_code
 import stabilizer_check_matrices
 import sys
 from pyquil.api import QVMConnection
+from pyquil.api import get_qc
 
-def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials = 100):
+def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials : int):
     qvm = QVMConnection()
+
     # find inverse of initial state prep to be applied at end before measurement
     inverse_initial_state_prep = Program()
     for instruction in reversed(initial_state_prep):
@@ -16,13 +19,22 @@ def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Progr
         new_instruction_qubits = [str(q.index) for q in instruction.qubits]
         inverse_initial_state_prep += Program(' '.join([new_instruction_name]+new_instruction_qubits))
     prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + inverse_initial_state_prep
-    prog.measure_all()
-    measured_bits = np.array(qvm.run(prog, trials=num_trials))
+    
+    # Jay has modified this for now
+    #qc = get_qc("9q-square-qvm")
+    #compiled_prog = qc.compile(prog)
+    #noisy_prog = noise.add_decoherence_noise(compiled_prog)
+    noisy_prog = prog
+    
+    
+    noisy_prog.measure_all()
+    measured_bits = np.array(qvm.run(noisy_prog, trials=num_trials))
     decoded_msg_bits = measured_bits[:,:code.k]
     # part which contains decoded qubits
     num_errors = np.count_nonzero(np.sum(decoded_msg_bits,axis=1))
-    print('num_trials', num_trials)
-    print('num_errors', num_errors)
+    #print('num_trials', num_trials)
+    #print('num_errors', num_errors)
+    return num_errors
 
 def generate_initial_state_prep_for_testing(k):
     # returns list of programs generating initial states for testing the
