@@ -19,7 +19,7 @@ import noise_models
 
 
 code_name = "bit_flip_code"
-noise_model = noise_models.bit_flip_channel(0.6)
+noise_model = noise_models.bit_flip_channel(0.4)
 num_trials_tot = 200
 
 def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
@@ -31,12 +31,15 @@ def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
 	for trial_id in range(num_trials_tot):
 		initial_state_prep = Program()
 		for qubit_id in range(code.k):
-			z_angle = (2*np.pi*np.random.rand(1))
-			y_angle = (1*np.pi*np.random.rand(1))
-			#initial_state_prep += RZ(z_angle,qubit_id)
-			#initial_state_prep += RY(y_angle,qubit_id)
-			initial_state_prep += X(qubit_id)
+			#z_angle = (2*np.pi*np.random.rand(1))
+			#y_angle = (1*np.pi*np.random.rand(1))
+			#initial_state_prep += RZ(z_angle[0],qubit_id)
+			#initial_state_prep += RY(y_angle[0],qubit_id)
+			bit = np.random.randint(2)
+			if bit==1:
+				initial_state_prep += X(qubit_id)
 
+		
 		error_prog = Program()
 		for qubit_id in range(code.n):
 			#error_prog.define_noisy_gate("I", [qubit_id], noise_model)
@@ -51,7 +54,9 @@ def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
 			
 			MY_NOISE = (noise_model[kraus_op_to_apply])[0]
 			error_prog += Program(MY_NOISE+' '+str(qubit_id))
-			
+		
+		
+		
 		num_errors = basic_tests.test_general(code, initial_state_prep, error_prog, 1)		
 		logical_err_rate += num_errors
 
