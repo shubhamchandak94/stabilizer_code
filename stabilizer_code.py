@@ -73,6 +73,8 @@ class StabilizerCode:
                             else:
                                 syndrome2correction[syndrome_tuple] = \
                                     Program('X ' +str(posX))+Program('Z ' +str(posZ))
+                else:
+                    raise NotImplementedError
         return syndrome2correction
 
     def __encode(self) -> Program:
