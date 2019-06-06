@@ -9,7 +9,7 @@ from pyquil.quil import DefGate
 import basic_tests
 import stabilizer_code
 import stabilizer_check_matrices
-import noise_models
+import noise_models_kraus
 
 # The goal of this program is to create a function that takes as input 
 # 1. A stabilizer code (described via its stabilizers)
@@ -17,12 +17,12 @@ import noise_models
 # and output a plot of the logical vs physical error rates achieved
 
 
-
+p = 0.7
 code_name = "bit_flip_code"
-noise_model = noise_models.bit_flip_channel(0.4)
 num_trials_tot = 200
+noise_model_kraus = noise_models_kraus.bit_flip_channel(p)
 
-def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
+def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot):
 	logical_err_rate = 0.0
 	code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
 	#print(code.encoding_program)		
@@ -39,7 +39,7 @@ def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
 			if bit==1:
 				initial_state_prep += X(qubit_id)
 
-		
+		'''
 		error_prog = Program()
 		for qubit_id in range(code.n):
 			#error_prog.define_noisy_gate("I", [qubit_id], noise_model)
@@ -54,9 +54,19 @@ def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
 			
 			MY_NOISE = (noise_model[kraus_op_to_apply])[0]
 			error_prog += Program(MY_NOISE+' '+str(qubit_id))
+		'''
 		
-		
-		
+		# Don't use I gate anywher else in program
+		error_prog = Program()
+		for qubit_id in range(code.n):
+			error_prog += Program(I(qubit_id))
+
+		kraus_ops = noise_model_kraus
+		error_defn = Program()
+		for qubit_id in range(code.n):
+			error_defn.define_noisy_gate('I', [qubit_id], kraus_ops)
+		error_prog = error_defn + error_prog
+
 		num_errors = basic_tests.test_general(code, initial_state_prep, error_prog, 1)		
 		logical_err_rate += num_errors
 
@@ -66,7 +76,7 @@ def GiveLogicalErrRate(code_name,noise_model,num_trials_tot):
 
 
 
-GiveLogicalErrRate(code_name,noise_model,num_trials_tot)
+GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot)
 
 
 

@@ -8,6 +8,7 @@ import sys
 from pyquil.api import QVMConnection
 from pyquil.api import get_qc
 
+
 def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials : int):
     qvm = QVMConnection()
 
@@ -15,20 +16,20 @@ def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Progr
     inverse_initial_state_prep = Program()
     for instruction in reversed(initial_state_prep):
         # inverse gate
-        new_instruction_name = 'DAGGER ' + (str(instruction).split())[0]
+        instruction_name = (str(instruction).split())[0]
+        if instruction_name in ['I','X','Y','Z','H','CNOT','CZ']:
+            new_instruction_name = instruction_name
+        else:
+            new_instruction_name = 'DAGGER ' + instruction_name
         new_instruction_qubits = [str(q.index) for q in instruction.qubits]
         inverse_initial_state_prep += Program(' '.join([new_instruction_name]+new_instruction_qubits))
     prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + inverse_initial_state_prep
-    
-    # Jay has modified this for now
-    #qc = get_qc("9q-square-qvm")
-    #compiled_prog = qc.compile(prog)
-    #noisy_prog = noise.add_decoherence_noise(compiled_prog)
-    noisy_prog = prog
+
+
     
     
-    noisy_prog.measure_all()
-    measured_bits = np.array(qvm.run(noisy_prog, trials=num_trials))
+    prog.measure_all()
+    measured_bits = np.array(qvm.run(prog, trials=num_trials))
     decoded_msg_bits = measured_bits[:,:code.k]
     # part which contains decoded qubits
     num_errors = np.count_nonzero(np.sum(decoded_msg_bits,axis=1))
