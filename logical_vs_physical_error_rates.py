@@ -70,7 +70,7 @@ noise_model_list = [["amplitude damping",noise_models_kraus.damping_kraus_map],
 
 #noise_model_list = [["depolarizing",noise_models_kraus.depolarizing_channel]]
 
-num_trials_tot = 500
+num_trials_tot = 1
 
 for j in range(len(noise_model_list)):
 	fig = plt.figure()
