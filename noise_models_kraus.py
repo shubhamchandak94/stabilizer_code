@@ -1,6 +1,6 @@
 import numpy as np
-from pyquil.noise import NoiseModel
-# http://docs.rigetti.com/en/stable/apidocs/noise.html
+from pyquil.noise import damping_kraus_map, dephasing_kraus_map, damping_after_dephasing
+# http://docs.rigetti.com/en/stable/apidocs/noise.html for descriptions of the above three functions
 
 def bit_flip_channel(prob: float):
     noisy_I = np.sqrt(1-prob) * np.asarray([[1, 0], [0, 1]])
@@ -31,5 +31,4 @@ def biased_depolarizing_channel(prob: float, pz: float):  # px+py+pz=prob
     noisy_Y = np.sqrt(pxy) * np.asarray([[0, -1], [1, 0]]) * complex(0, 1)
     noisy_Z = np.sqrt(pz) * np.asarray([[1, 0], [0, -1]])
     return [noisy_I, noisy_X, noisy_Y, noisy_Z, eta]
-
 

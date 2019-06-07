@@ -7,22 +7,26 @@ import stabilizer_check_matrices
 import sys
 from pyquil.api import QVMConnection
 from pyquil.api import get_qc
+from pyquil.api import WavefunctionSimulator
 
 
-def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials : int):
+def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials : int, inverse_initial_state_prep_param = None):
     qvm = QVMConnection()
 
     # find inverse of initial state prep to be applied at end before measurement
-    inverse_initial_state_prep = Program()
-    for instruction in reversed(initial_state_prep):
-        # inverse gate
-        instruction_name = (str(instruction).split())[0]
-        if instruction_name in ['I','X','Y','Z','H','CNOT','CZ']:
-            new_instruction_name = instruction_name
-        else:
-            new_instruction_name = 'DAGGER ' + instruction_name
-        new_instruction_qubits = [str(q.index) for q in instruction.qubits]
-        inverse_initial_state_prep += Program(' '.join([new_instruction_name]+new_instruction_qubits))
+    if inverse_initial_state_prep_param == None:
+        inverse_initial_state_prep = Program()
+        for instruction in reversed(initial_state_prep):
+            #inverse gate
+            instruction_name = (str(instruction).split())[0]
+            if instruction_name in ['I','X','Y','Z','H','CNOT','CZ']:
+                new_instruction_name = instruction_name
+            else:
+                new_instruction_name = 'DAGGER ' + instruction_name
+            new_instruction_qubits = [str(q.index) for q in instruction.qubits]
+            inverse_initial_state_prep += Program(' '.join([new_instruction_name]+new_instruction_qubits))
+    else:
+        inverse_initial_state_prep = inverse_initial_state_prep_param
     prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + inverse_initial_state_prep
 
 
