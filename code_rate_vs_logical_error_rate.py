@@ -67,42 +67,32 @@ noise_model_list = [["amplitude damping",noise_models_kraus.damping_kraus_map],
 ["phase flip",noise_models_kraus.phase_flip_channel],
 ["depolarizing",noise_models_kraus.depolarizing_channel]]
 
-#noise_model_list = [["depolarizing",noise_models_kraus.depolarizing_channel]]
+p = 0.4
+noise_model_kraus = noise_models_kraus.depolarizing_channel(p)
 
-num_trials_tot = 20
-
-for j in range(len(noise_model_list)):
-	fig = plt.figure()
-
-	for code_name in code_name_list:
-		code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
-		channel_param_vec = np.linspace(0,1,11)
-		logical_err_rate_vec = np.zeros(len(channel_param_vec))
-		for i in range(len(channel_param_vec)):
-			noise_model_kraus = ((noise_model_list[j])[1])(channel_param_vec[i])
-			logical_err_rate_vec[i] = GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code)
-		plt.plot(channel_param_vec,logical_err_rate_vec,label=code_name)
-		
-
-	plt.ylabel('Logical Error Rate')
-	plt.xlabel((noise_model_list[j])[0]+' probability')
-	plt.title('Logical Error Rates for various codes with '+(noise_model_list[j])[0]+' noise')
-	plt.legend(loc='upper left')
-	plt.savefig((noise_model_list[j])[0]+'.png',dpi=fig.dpi)
-	#plt.show()
+num_trials_tot = 1000
+code_rate_vec = []
+logical_err_rate_vec = []
 
 
+for code_name in code_name_list:
+	code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
+	code_rate_vec.append(code.k/code.n)
+	logical_err_rate_vec.append(GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code))
 
+#plt.scatter(code_rate_vec,logical_err_rate_vec)
 
+fig = plt.figure()
+plt.scatter(code_rate_vec,logical_err_rate_vec)
 
-
-
-
-
-
-
-
-
+for i, txt in enumerate(code_name_list):
+    plt.annotate(txt, (code_rate_vec[i],logical_err_rate_vec[i]))
+	
+plt.ylabel('Logical Error Rate')
+plt.xlabel('Code rate = num of logical qubits / num of physical qubits')
+plt.title('Logical Error Rates vs code rate various codes with depolarizing noise (0.4)')
+plt.savefig('code_rate.png',dpi=fig.dpi)
+#plt.show()
 
 
 

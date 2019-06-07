@@ -8,6 +8,21 @@ from pyquil.gates import MEASURE
 
 tuple2pauli = {(0,0):'I', (0,1): 'Z', (1,0): 'X', (1,1): 'Y'}
 
+def pauli2controlledpauli(pauli,i,j):
+    p = Program()
+    if pauli != 'I':
+        if pauli=='X':
+            p += Program('CNOT '+str(i)+' '+str(j))
+        elif pauli=='Z':
+            p += Program('CZ '+str(i)+' '+str(j))
+        else:
+            p += Program('CZ '+str(i)+' '+str(j))
+            p += Program('CNOT '+str(i)+' '+str(j))
+            p += Program('CPHASE10 ('+str(np.pi/2)+') '+str(i)+' '+str(j))
+            p += Program('CPHASE ('+str(np.pi/2)+') '+str(i)+' '+str(j))
+            
+    return p
+
 class StabilizerCode:
     def __init__(self, check_matrix):
         self.check_matrix = check_matrix[0]
@@ -108,8 +123,7 @@ class StabilizerCode:
                 if j == i:
                     continue # already considered before
                 pauli = tuple2pauli[(self.std_check_matrix[i,j],self.std_check_matrix[i,self.n+j])]
-                if pauli != 'I':
-                    p += Program('CONTROLLED '+pauli+' '+str(i)+' '+str(j))
+                p += pauli2controlledpauli(pauli,i,j)
 
         return p
 
@@ -130,8 +144,7 @@ class StabilizerCode:
             p += Program('H '+str(self.n+i))
             for j in range(self.n):
                 pauli = tuple2pauli[(self.std_check_matrix[i,j],self.std_check_matrix[i,self.n+j])]
-                if pauli != 'I':
-                    p += Program('CONTROLLED '+pauli+' '+str(self.n+i)+' '+str(j))
+                p += pauli2controlledpauli(pauli,self.n+i,j)
             p += Program('H '+str(self.n+i))
 
         for i in range(self.n-self.k):
@@ -166,8 +179,7 @@ class StabilizerCode:
                     p += Program('CNOT '+str(j)+' '+str(self.n+i))
             for j in range(self.n):
                 pauli = tuple2pauli[(self.X_bar[i,j],self.X_bar[i,self.n+j])]
-                if pauli != 'I':
-                    p += Program('CONTROLLED '+pauli+' '+str(self.n+i)+' '+str(j))
+                p += pauli2controlledpauli(pauli,self.n+i,j)
 
         # swap and put the decoded qubits to 0..k-1
         for i in range(self.k):
