@@ -23,7 +23,7 @@ The stabilizer codes are defined here in terms of the stabilizer generator matri
 Given a stabilizer code representation `my_stabilizer_code` in the format as described above, run the following
 ```python
 import stabilizer_code
-code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
+code = stabilizer_code.StabilizerCode(my_stabilizer_code)
 ```
 
 Then `code.encoding_program` and `code.decoding_program` are the encoding and decoding programs, respectively.
