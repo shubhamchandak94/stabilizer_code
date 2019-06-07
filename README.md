@@ -16,6 +16,18 @@ git clone https://github.com/shubhamchandak94/stabilizer_code
 ```
 to download the code.
 
+## Defining a stabilizer code
+The stabilizer codes are defined here in terms of the stabilizer generator matrix and the error correction capabilities of the code. The error correction capability is defined in terms of a dictionary mapping the error type to the number of such errors the code can correct. Currently supported error types are X, Y, Z on single qubits and a combination of X and Z on different qubits. Some examples of stabilizer codes along with the parameters are provided in `stabilizer_check_matrices.py`.
+
+## Generating programs for encoding and decoding a stabilizer code
+Given a stabilizer code representation `my_stabilizer_code` in the format as described above, run the following
+```python
+import stabilizer_code
+code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
+```
+
+Then `code.encoding_program` and `code.decoding_program` are the encoding and decoding programs, respectively.
+
 ## Running basic tests
 First run `qvm -S` and `quilc -S` before running any tests.
 
