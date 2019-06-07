@@ -39,7 +39,8 @@ def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code):
 			#bit = np.random.randint(2)
 			#if bit==1:
 			#	initial_state_prep += X(qubit_id)
-		
+			#	inverse_initial_state_prep += X(qubit_id)
+
 		# Don't use I gate anywher else in program
 		error_prog = Program()
 		for qubit_id in range(code.n):
@@ -59,17 +60,17 @@ def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code):
 	return logical_err_rate
 
 #code_name_list = ["bit_flip_code","phase_flip_code","steane_code","five_qubit_code", "shor_code"]
-#code_name_list = ["bit_flip_code","phase_flip_code","steane_code","five_qubit_code"]
-code_name_list = ["steane_code"]
+code_name_list = ["bit_flip_code","phase_flip_code","steane_code","five_qubit_code"]
+#code_name_list = ["steane_code"]
 noise_model_list = [["amplitude damping",noise_models_kraus.damping_kraus_map],
 ["dephasing",noise_models_kraus.dephasing_kraus_map],
 ["bit flip",noise_models_kraus.bit_flip_channel],
 ["phase flip",noise_models_kraus.phase_flip_channel],
 ["depolarizing",noise_models_kraus.depolarizing_channel]]
 
-noise_model_list = [["depolarizing",noise_models_kraus.depolarizing_channel]]
+#noise_model_list = [["depolarizing",noise_models_kraus.depolarizing_channel]]
 
-num_trials_tot = 400
+num_trials_tot = 500
 
 for j in range(len(noise_model_list)):
 	fig = plt.figure()

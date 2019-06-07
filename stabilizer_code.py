@@ -16,8 +16,11 @@ def pauli2controlledpauli(pauli,i,j):
         elif pauli=='Z':
             p += Program('CZ '+str(i)+' '+str(j))
         else:
-            p += Program('CNOT '+str(i)+' '+str(j))
             p += Program('CZ '+str(i)+' '+str(j))
+            p += Program('CNOT '+str(i)+' '+str(j))
+            p += Program('CPHASE10 ('+str(np.pi/2)+') '+str(i)+' '+str(j))
+            p += Program('CPHASE ('+str(np.pi/2)+') '+str(i)+' '+str(j))
+            
     return p
 
 class StabilizerCode:
