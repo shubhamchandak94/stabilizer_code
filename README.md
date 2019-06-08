@@ -7,7 +7,7 @@ Authors: Shubham Chandak, Jay Mardia, Meltem Tolunay
 
 Instructor: Will Zeng
 
-[Report](https://github.com/shubhamchandak94/stabilizer_code/blob/master/stabilizer_code_report.pdf)
+### [Report](https://github.com/shubhamchandak94/stabilizer_code/blob/master/stabilizer_code_report.pdf)
 
 ## Installation
 Follow instructions to install qvm and quilc from http://docs.rigetti.com/en/stable/.
