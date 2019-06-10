@@ -32,11 +32,7 @@ def generate_initial_state_prep_for_testing(k):
         return [
             Program(),
             Program('X 0'),
-            Program('H 0'),
-            Program('X 0') + Program('H 0'),
-            Program('T 0'),
-            Program('RX (1.0) 0'),
-        ]
+        ]+[Program('RX ('+str(np.random.rand(1)[0]*np.pi)+') 0') + Program('RZ ('+str(np.random.rand(1)[0]*2*np.pi)+') 0')]*5
     else:
         raise NotImplementedError
 
