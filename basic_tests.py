@@ -7,7 +7,6 @@ import stabilizer_check_matrices
 import sys
 from pyquil.api import QVMConnection
 from pyquil.api import get_qc
-from pyquil.api import WavefunctionSimulator
 
 
 def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Program, error_prog: Program, num_trials : int, inverse_initial_state_prep_param = None):
@@ -30,8 +29,8 @@ def test_general(code: stabilizer_code.StabilizerCode, initial_state_prep: Progr
     prog = initial_state_prep + code.encoding_program + error_prog + code.decoding_program + inverse_initial_state_prep
 
 
-    
-    
+
+
     prog.measure_all()
     measured_bits = np.array(qvm.run(prog, trials=num_trials))
     decoded_msg_bits = measured_bits[:,:code.k]
@@ -116,7 +115,7 @@ def test_oneX_oneZ(code: stabilizer_code.StabilizerCode):
                 print('X error in qubit',i)
                 print('Z error in qubit',j)
                 test_general(code, init_program, Program('X '+str(i))+Program('Z '+str(j)))
-               
+
 def main():
 	if len(sys.argv) == 1:
 		# test all codes
@@ -138,4 +137,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-	
