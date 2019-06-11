@@ -19,7 +19,9 @@ import matplotlib.pyplot as plt
 # and output a plot of the logical vs physical error rates achieved
 
 
-def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code):
+# If init_state_mode  = 0, initial state for the test is randomly |0> or |1> uniformly
+# If init_state_mode  = 1, initial state for the test is uniformly random on Bloch sphere
+def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code,init_state_mode):
 	logical_err_rate = 0.0
 	
 	#print(code.encoding_program)		
@@ -29,16 +31,19 @@ def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code):
 		initial_state_prep = Program()
 		inverse_initial_state_prep = Program()
 		for qubit_id in range(code.k):
-			z_angle = (2*np.pi*np.random.rand(1))
-			y_angle = (1*np.pi*np.random.rand(1))
-			initial_state_prep += RZ(z_angle[0],qubit_id)
-			initial_state_prep += RY(y_angle[0],qubit_id)
-			inverse_initial_state_prep += RY(-y_angle[0],qubit_id)
-			inverse_initial_state_prep += RZ(-z_angle[0],qubit_id)
-			#bit = np.random.randint(2)
-			#if bit==1:
-			#	initial_state_prep += X(qubit_id)
-			#	inverse_initial_state_prep += X(qubit_id)
+			if init_state_mode==0:
+				bit = np.random.randint(2)
+				if bit==1:
+					initial_state_prep += X(qubit_id)
+					inverse_initial_state_prep += X(qubit_id)				
+			else:
+				z_angle = (2*np.pi*np.random.rand(1))
+				y_angle = (1*np.pi*np.random.rand(1))
+				initial_state_prep += RZ(z_angle[0],qubit_id)
+				initial_state_prep += RY(y_angle[0],qubit_id)
+				inverse_initial_state_prep += RY(-y_angle[0],qubit_id)
+				inverse_initial_state_prep += RZ(-z_angle[0],qubit_id)
+
 
 		# Don't use I gate anywher else in program
 		error_prog = Program()
@@ -58,53 +63,57 @@ def GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code):
 	print(code_name,logical_err_rate)
 	return logical_err_rate
 
-#code_name_list = ["bit_flip_code","phase_flip_code","steane_code","five_qubit_code", "shor_code"]
-code_name_list = ["bit_flip_code","phase_flip_code","steane_code","five_qubit_code"]
-#code_name_list = ["steane_code"]
-noise_model_list = [["amplitude damping",noise_models_kraus.damping_kraus_map],
-["dephasing",noise_models_kraus.dephasing_kraus_map],
-["bit flip",noise_models_kraus.bit_flip_channel],
-["phase flip",noise_models_kraus.phase_flip_channel],
-["depolarizing",noise_models_kraus.depolarizing_channel]]
 
-#noise_model_list = [["depolarizing",noise_models_kraus.depolarizing_channel]]
+# If init_state_mode  = 0, initial state for the test is randomly |0> or |1> uniformly
+# If init_state_mode  = 1, initial state for the test is uniformly random on Bloch sphere
+# num_trials_tot is the number of trials / shots for a given (noise, code, parameter) triple
+# code_name_list is a list of all the codes this function will create plots for
+# noise_model_list is a list of all the noise models this function will create plots for
+# To see what codes are already implemented supported, check stabilizer_check_matrices.py
+# To see what noise models are already implemented, check noise_models_kraus.py
+# It is also possible to write your own code or noise model, by following the formats in the two files above.
+def MakeLogicalErrRatePlots(init_state_mode,num_trials_tot,code_name_list,noise_model_list):
+	for j in range(len(noise_model_list)):
+		fig = plt.figure()
 
-num_trials_tot = 20
+		for code_name in code_name_list:
+			code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
+			channel_param_vec = np.linspace(0,1,11)
+			logical_err_rate_vec = np.zeros(len(channel_param_vec))
+			for i in range(len(channel_param_vec)):
+				noise_model_kraus = ((noise_model_list[j])[1])(channel_param_vec[i])
+				logical_err_rate_vec[i] = GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code,init_state_mode)
+			plt.plot(channel_param_vec,logical_err_rate_vec,label=code_name)
+			
 
-for j in range(len(noise_model_list)):
-	fig = plt.figure()
+		plt.ylabel('Logical Error Rate')
+		plt.xlabel((noise_model_list[j])[0]+' probability')
+		plt.title('Logical Error Rates for various codes with '+(noise_model_list[j])[0]+' noise')
+		plt.legend(loc='upper left')
+		plt.savefig((noise_model_list[j])[0]+'.png',dpi=fig.dpi)
 
-	for code_name in code_name_list:
-		code = stabilizer_code.StabilizerCode(stabilizer_check_matrices.mat_dict[code_name])
-		channel_param_vec = np.linspace(0,1,11)
-		logical_err_rate_vec = np.zeros(len(channel_param_vec))
-		for i in range(len(channel_param_vec)):
-			noise_model_kraus = ((noise_model_list[j])[1])(channel_param_vec[i])
-			logical_err_rate_vec[i] = GiveLogicalErrRate(code_name,noise_model_kraus,num_trials_tot,code)
-		plt.plot(channel_param_vec,logical_err_rate_vec,label=code_name)
-		
+def main():
+	# An example code_name_list
+	code_name_list = ["bit_flip_code","phase_flip_code","steane_code","five_qubit_code"]
 
-	plt.ylabel('Logical Error Rate')
-	plt.xlabel((noise_model_list[j])[0]+' probability')
-	plt.title('Logical Error Rates for various codes with '+(noise_model_list[j])[0]+' noise')
-	plt.legend(loc='upper left')
-	plt.savefig((noise_model_list[j])[0]+'.png',dpi=fig.dpi)
-	#plt.show()
+	# An example noise_model_list
+	noise_model_list = [["amplitude damping",noise_models_kraus.damping_kraus_map],
+	["dephasing",noise_models_kraus.dephasing_kraus_map],
+	["bit flip",noise_models_kraus.bit_flip_channel],
+	["phase flip",noise_models_kraus.phase_flip_channel],
+	["depolarizing",noise_models_kraus.depolarizing_channel]]
 
+	num_trials_tot = 500
 
+	# If init_state_mode  = 0, initial state for the test is randomly |0> or |1> uniformly
+	# If init_state_mode  = 1, initial state for the test is uniformly random on Bloch sphere
+	init_state_mode = 0
 
-
-
-
-
+	MakeLogicalErrRatePlots(init_state_mode,num_trials_tot,code_name_list,noise_model_list)
 
 
-
-
-
-
-
-
+if __name__ == "__main__":
+	main()
 
 
 
