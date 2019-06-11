@@ -44,3 +44,10 @@ To run basic tests for a specific code, run with the name of the code, e.g.,
 `
 python3 basic_tests.py bit_flip_code
 `
+## Plotting logical error rates vs physical error rates
+First run `qvm -S` and `quilc -S` before running any tests.
+Then run the function `logical_vs_physical_error_rates.py` after changing the parameters in the main appropriately (examples provided in the code).
+
+## Plotting logical error rates vs code rates
+First run `qvm -S` and `quilc -S` before running any tests.
+Then run the function `PlotCodeRateVsErrRate` from `code_rate_vs_logical_error_rate.py` with appropriate arguments (examples provided in the code)
